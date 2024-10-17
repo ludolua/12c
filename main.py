@@ -35,11 +35,14 @@ def present_value():
         display_var.set(f"PV: {pv:.2f}")
     except:
         display_var.set("Error")
-
+        
 def key_event(event):
     key = event.keysym
+  
     if key.isdigit() or key in ['plus', 'minus', 'slash', 'asterisk', 'period']:
-        append_to_display(event.char)  
+
+        append_to_display(event.char)
+        return 'break' 
     elif key == 'Return': 
         calculate()
     elif key == 'BackSpace': 
@@ -50,15 +53,16 @@ def key_event(event):
 root = tk.Tk()
 root.title("HP 12C - Python")
 
+root.resizable(False, False)
+
 button_color_bg = '#f4d03f' 
 button_color_fg = '#4a4a4a'  
 button_color_special = '#d4d4d4'  
 display_bg = '#1e1e1e'  
 display_fg = '#f2f2f2'  
 
-
 display_var = tk.StringVar()
-display = tk.Entry(root, textvariable=display_var, font=('Arial', 20), bd=10, insertwidth=2, width=14, borderwidth=4, bg=display_bg, fg=display_fg, justify='right')
+display = tk.Entry(root, textvariable=display_var, font=('Arial', 20), bd=10, insertwidth=2, width=20, borderwidth=4, bg=display_bg, fg=display_fg, justify='right')
 display.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
 
 def create_button(text, row, col, width=5, height=2, color_bg=button_color_bg, color_fg=button_color_fg, command=None):
